@@ -112,7 +112,7 @@
                                     =====================================================================================
                                     -->
                                 <v-flex xs12 pa-1>
-                                    <p class="info--text mb-2">
+                                    <div class="info--text mb-2" style="display: inline-flex;">
                                         {{ $t('common.amount') }}:
                                         <span v-if="isErc20" class="black--text"> {{ balance.value }}</span>
                                         <span v-else class="black--text"> {{ balance }}</span>
@@ -120,12 +120,16 @@
                                         <span v-show="balance.tooltipText">
                                             <app-tooltip :text="balance.tooltipText" pl-1 />
                                         </span>
-                                    </p>
+                                    <-p>
+
+                                        <div v-if="balance">
+                                            <app-tooltip :text="balanc" pl-1/>
+
                                     <p v-if="isErc20" class="info--text mb-2">
                                         {{ $t('usd.value') }}:
                                         <span class="black--text">
                                             {{ usdValueFormatted.value }}
-                                            <span v-show="usdValueFormatted.tooltipText">
+                                            <span v-show="usdValueFormat">
                                                 <app-tooltip :text="usdValueFormatted.tooltipText" />
                                             </span>
                                         </span>
@@ -182,14 +186,19 @@
                         -->
                     <v-flex v-if="!isErc20" md2 />
                     <v-flex md3>
-                        <p v-if="isErc20" class="black--text">
+                        <div v-if="isErc20" class="black--text" style="display: flex; align-items: center;">
                             {{ balance.value }}
-                            <span v-if="isErc20 && symbolString" class="info--text caption pr-1">{{ symbolString }}</span>
+            <span v-if="isErc20 && symbolString" class="info--text caption pr-1">{{ symbolString }}</span>
                             <span v-show="balance.tooltipText">
                                 <app-tooltip :text="balance.tooltipText" />
                             </span>
-                        </p>
-                        <p v-else class="black--text">{{ balance }}</p>
+
+                            <span v-if="symbolString" class="info--text caption pr-1 pl-1">{{ symbolString }}</span>
+                            <div v-if="balance.tooltipText">
+                                <app-tooltip :text="balance.tooltipText" />
+                            </div>
+                        </div>
+
                     </v-flex>
                     <!--
                         =====================================================================================
